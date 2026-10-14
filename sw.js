@@ -1,5 +1,5 @@
 // Offline copy of the app. Bump VERSION whenever a file changes so phones pick up the update.
-const VERSION = 'small-recovery-1';
+const VERSION = 'small-recovery-3';
 const FILES = ['./', 'index.html', 'style.css', 'app.js', 'synth.js', 'manifest.webmanifest', 'icon.svg', 'icon-180.png', 'icon-192.png', 'icon-512.png'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(VERSION).then(c => c.addAll(FILES)).then(() => self.skipWaiting())); });
 self.addEventListener('activate', e => {

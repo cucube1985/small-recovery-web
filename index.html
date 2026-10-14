@@ -9,7 +9,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="작은 회복">
-<meta name="description" content="1·3·5분 호흡 리셋과 화면을 꺼도 이어지는 명상. 소리는 기기에서 실시간으로 만들어요.">
+<meta name="description" content="1·3·5분 호흡 리셋과 명상. 소리는 기기에서 실시간으로 만들어요.">
 <title>작은 회복</title>
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icon.svg" type="image/svg+xml">
@@ -44,7 +44,7 @@
       </div>
     </div>
   </div>
-  <a class="link" href="#meditation" id="meditateLink">☾ 명상 모드 · 화면을 꺼도 소리가 이어져요 ›</a>
+  <a class="link" href="#meditation" id="meditateLink">☾ 명상 모드 · 화면을 켠 채 들어요 ›</a>
 </main>
 
 <!-- Sounds: tap to choose and preview. Only the grid scrolls; the controls stay put. -->
@@ -66,16 +66,21 @@
     <a class="chip" href="#sounds" id="medChip">♪ 잔잔한 음</a>
   </div>
   <h1>명상 모드</h1>
-  <p class="lead">화면을 꺼도 소리가 이어져요.<br>끝날 무렵 소리가 천천히 작아져요.</p>
+  <p class="lead">화면을 켠 채로 들어요. 어둡게 해 둘 수 있어요.<br>끝날 무렵 소리가 천천히 작아져요.</p>
   <div class="choices" id="medDurations">
     <button type="button" data-min="10">10분</button><button type="button" data-min="20">20분</button><button type="button" data-min="30">30분</button><button type="button" data-min="60">60분</button>
   </div>
   <label class="switch"><span>시작과 끝에 싱잉볼 종소리</span><input type="checkbox" id="bell" role="switch"></label>
   <canvas id="medCircle" class="circle" role="img" aria-label="남은 시간"></canvas>
-  <p class="message" id="medNote" aria-live="polite">편안한 자세로 시작해요.</p>
+  <p class="message" id="medNote" aria-live="polite">화면은 저절로 꺼지지 않아요.</p>
   <button type="button" class="primary" id="medPrimary">20분 명상 시작</button>
-  <div class="slot short"><button type="button" class="secondary" id="medEnd" hidden>끝내기</button></div>
+  <div class="slot short pair"><button type="button" class="secondary" id="medDim" hidden>어둡게</button><button type="button" class="secondary" id="medEnd" hidden>끝내기</button></div>
 </section>
+
+<!-- Dark screen for the meditation: black (OLED pixels off) with a faint drifting clock. -->
+<div id="dim" class="dim" hidden role="button" tabindex="0" aria-label="어두운 화면. 누르면 돌아가요.">
+  <div class="dim-text"><p id="dimClock"></p><p id="dimHint">누르면 돌아가요</p></div>
+</div>
 
 <script src="app.js"></script>
 </body>
