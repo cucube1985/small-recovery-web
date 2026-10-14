@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#f6f7f1">
+<meta name="color-scheme" content="light">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="작은 회복">
+<meta name="description" content="1·3·5분 호흡 리셋과 화면을 꺼도 이어지는 명상. 소리는 기기에서 실시간으로 만들어요.">
+<title>작은 회복</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<!-- Main: everything fits one screen; the breath circle takes whatever height is left. -->
+<main id="main" class="view">
+  <header class="head">
+    <div>
+      <p class="kicker">나에게 잠깐의 여유를</p>
+      <h1>지금, 작은 회복</h1>
+    </div>
+    <a class="chip" href="#sounds" id="soundChip">♪ 잔잔한 음</a>
+  </header>
+  <p class="lead">어깨를 내리고, 숨을 편하게.<br>잠시 아무것도 해내지 않아도 괜찮아요.</p>
+  <div class="choices" id="durations">
+    <button type="button" data-min="1">1분</button><button type="button" data-min="3">3분</button><button type="button" data-min="5">5분</button>
+  </div>
+  <canvas id="breath" class="circle" role="img" aria-label="호흡 원. 시작하면 원을 따라 편하게 숨 쉬세요."></canvas>
+  <p class="clock" id="clock" aria-live="off">01:00</p>
+  <p class="message" id="message" aria-live="polite">이 시간만큼은 나에게 돌아와요.</p>
+  <button type="button" class="primary" id="primary">1분 리셋 시작</button>
+  <!-- Fixed-height slot for "stop" or the feedback question, so the circle never jumps size mid-session. -->
+  <div class="slot">
+    <button type="button" class="secondary" id="stop" hidden>여기까지 쉬기</button>
+    <div id="feedback" hidden>
+      <p class="ask">지금 마음은 어떤가요?</p>
+      <div class="choices small">
+        <button type="button" data-feel="better">나아졌어요</button><button type="button" data-feel="same">비슷해요</button><button type="button" data-feel="worse">더 힘들어요</button>
+      </div>
+    </div>
+  </div>
+  <a class="link" href="#meditation" id="meditateLink">☾ 명상 모드 · 화면을 꺼도 소리가 이어져요 ›</a>
+</main>
+
+<!-- Sounds: tap to choose and preview. Only the grid scrolls; the controls stay put. -->
+<section id="sounds" class="view" hidden>
+  <a class="back" href="#">‹ 돌아가기</a>
+  <h2>함께 들을 소리</h2>
+  <p class="sub" id="soundsSub">눌러서 미리 들어보고 골라요.</p>
+  <div class="grid" id="grid" role="listbox" aria-label="소리"></div>
+  <p class="status" id="soundStatus" aria-live="polite">고른 소리는 바로 저장돼요.</p>
+  <label class="slider">소리 크기 <input type="range" id="volume" min="0" max="100" aria-label="소리 크기"></label>
+  <label class="switch"><span>호흡 가이드 · 들이쉬기 4초, 내쉬기 6초</span><input type="checkbox" id="guide" role="switch"></label>
+  <a class="primary button" href="#">이 소리로 쉬기</a>
+</section>
+
+<!-- Meditation: the sound and its clock live in the audio thread, so the page can go to the background. -->
+<section id="meditation" class="view" hidden>
+  <div class="head row">
+    <a class="back" href="#">‹ 돌아가기</a>
+    <a class="chip" href="#sounds" id="medChip">♪ 잔잔한 음</a>
+  </div>
+  <h1>명상 모드</h1>
+  <p class="lead">화면을 꺼도 소리가 이어져요.<br>끝날 무렵 소리가 천천히 작아져요.</p>
+  <div class="choices" id="medDurations">
+    <button type="button" data-min="10">10분</button><button type="button" data-min="20">20분</button><button type="button" data-min="30">30분</button><button type="button" data-min="60">60분</button>
+  </div>
+  <label class="switch"><span>시작과 끝에 싱잉볼 종소리</span><input type="checkbox" id="bell" role="switch"></label>
+  <canvas id="medCircle" class="circle" role="img" aria-label="남은 시간"></canvas>
+  <p class="message" id="medNote" aria-live="polite">편안한 자세로 시작해요.</p>
+  <button type="button" class="primary" id="medPrimary">20분 명상 시작</button>
+  <div class="slot short"><button type="button" class="secondary" id="medEnd" hidden>끝내기</button></div>
+</section>
+
+<script src="app.js"></script>
+</body>
+</html>
